@@ -1,7 +1,4 @@
-using System;
-using System.Net.Http;
 using System.Text;
-using Xunit;
 
 namespace MyProject.Tests
 {
@@ -10,22 +7,20 @@ namespace MyProject.Tests
         [Fact]
         public void Append_ForTwoStrings_ReturnsConcatenatedString()
         {
-            // arrange
+            //arrange
 
             StringBuilder sb = new StringBuilder();
 
-            // act
+
+            //act
             sb.Append("test")
                 .Append("test2");
 
             string result = sb.ToString();
+            //assert
 
-
-            // assert
-
-            Assert.Equal("testtest2", result);
+            Assert.Equal("testtest2",result);
 
         }
-
     }
 }

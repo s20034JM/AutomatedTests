@@ -11,6 +11,7 @@ namespace MyProject
     {
         private readonly UnitSystem _unitSystem;
         private readonly IBmiCalculator _bmiCalculator;
+        //private readonly BmiDeterminator _bmiDeterminator = new();
         private readonly IBmiDeterminator _bmiDeterminator;
 
         private IBmiCalculator GetBmiCalculator(UnitSystem unitSystem)
@@ -36,8 +37,8 @@ namespace MyProject
         public BmiCalculatorFacade(UnitSystem unitSystem, IBmiDeterminator bmiDeterminator)
         {
             _unitSystem = unitSystem;
-            _bmiDeterminator = bmiDeterminator;
             _bmiCalculator = GetBmiCalculator(unitSystem);
+            _bmiDeterminator = bmiDeterminator;
         }
 
         public BmiResult GetResult(double weight, double height)

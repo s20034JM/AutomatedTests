@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace MyProject.Tests
 {
@@ -11,6 +10,7 @@ namespace MyProject.Tests
     {
         [Theory]
         [InlineData(10.0, BmiClassification.Underweight)]
+        [InlineData(13.0, BmiClassification.Underweight)]
         [InlineData(18.0, BmiClassification.Underweight)]
         [InlineData(8.0, BmiClassification.Underweight)]
         [InlineData(19.0, BmiClassification.Normal)]
@@ -23,20 +23,23 @@ namespace MyProject.Tests
         [InlineData(32.8, BmiClassification.Obesity)]
         [InlineData(34.8, BmiClassification.Obesity)]
         [InlineData(34.9, BmiClassification.Obesity)]
-        [InlineData(35.9, BmiClassification.ExtremeObesity)]
-        [InlineData(55.9, BmiClassification.ExtremeObesity)]
+        [InlineData(36.9, BmiClassification.ExtremeObesity)]
+        [InlineData(66.9, BmiClassification.ExtremeObesity)]
         public void DetermineBmi_ForGivenBmi_ReturnsCorrectClassification(double bmi, BmiClassification classification)
         {
-            // arrange
-            BmiDeterminator bmiDeterminator = new BmiDeterminator();
+            //arrange
 
-            // act
+            BmiDeterminator bmiDeterminator = new();
+
+            //act
 
             BmiClassification result = bmiDeterminator.DetermineBmi(bmi);
 
-            // assert
+            //assert
+
             Assert.Equal(classification, result);
         }
+
 
     }
 }

@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,23 +10,25 @@ namespace MyProject.Tests
 {
     public class MetricBmiCalculatorTestsData : IEnumerable<object[]>
     {
-        private const string JSON_PATH = "Data/MetricBmiCalculatorData.json";
+        private const string jsonPath = "Data/MetricBmiCalculatorData.json";
         public IEnumerator<object[]> GetEnumerator()
         {
-            var currectDir = Directory.GetCurrentDirectory();
-            var jsonFullPath = Path.GetRelativePath(currectDir, JSON_PATH);
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var jsonFileFullPath = Path.GetRelativePath(currentDirectory, jsonPath);
 
-            if (!File.Exists(jsonFullPath))
+            if (!File.Exists(jsonFileFullPath))
             {
-                throw new ArgumentException($"Couldn't find file: {jsonFullPath}");
+                throw new ArgumentException($"couldn't find file: {jsonFileFullPath}");
             }
 
-            var jsonData = File.ReadAllText(jsonFullPath);
-            var allCases = JsonConvert.DeserializeObject<IEnumerable<object[]>>(jsonData);
-
-            return allCases.GetEnumerator();
+            var jsonData = File.ReadAllText(jsonFileFullPath);
+            var allClasses = JsonConvert.DeserializeObject<IEnumerable<object[]>>(jsonData);
+            return allClasses.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

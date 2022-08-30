@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -10,31 +9,31 @@ using Xunit.Sdk;
 
 namespace MyProject.Tests
 {
-    public class JsonFileData : DataAttribute
+    internal class JsonFileData : DataAttribute
     {
-        private readonly string _jsonPath;
-
+        private readonly string jsonPath;
         public JsonFileData(string jsonPath)
         {
-            _jsonPath = jsonPath;
+            this.jsonPath = jsonPath;
         }
         public override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
-            if(testMethod == null) throw new ArgumentNullException(nameof(testMethod));
-
-            var currectDir = Directory.GetCurrentDirectory();
-            var jsonFullPath = Path.GetRelativePath(currectDir, _jsonPath);
-
-            if (!File.Exists(jsonFullPath))
+            if (testMethod == null)
             {
-                throw new ArgumentException($"Couldn't find file: {jsonFullPath}");
+                throw new ArgumentNullException(nameof(testMethod));
             }
 
-            var jsonData = File.ReadAllText(jsonFullPath);
-            var allCases = JsonConvert.DeserializeObject<IEnumerable<object[]>>(jsonData);
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var jsonFileFullPath = Path.GetRelativePath(currentDirectory, jsonPath);
 
-            return allCases;
+            if (!File.Exists(jsonFileFullPath))
+            {
+                throw new ArgumentException($"couldn't find file: {jsonFileFullPath}");
+            }
 
+            var jsonData = File.ReadAllText(jsonFileFullPath);
+            var allClasses = JsonConvert.DeserializeObject<IEnumerable<object[]>>(jsonData);
+            return allClasses;
         }
     }
 }
